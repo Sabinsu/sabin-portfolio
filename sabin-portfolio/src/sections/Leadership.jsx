@@ -1,5 +1,6 @@
 import SectionHeading from "../components/SectionHeading";
 import Reveal from "../components/Reveal";
+import OpenBox from "../components/OpenBox";
 import { leadership } from "../data/services";
 
 export default function Leadership() {
@@ -18,19 +19,10 @@ export default function Leadership() {
           />
         </Reveal>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {leadership.map((item, i) => (
-            <Reveal
-              key={item.title}
-              delay={i * 0.05}
-              className="rounded-xl border border-ink-300/15 bg-white p-6 dark:bg-ink-900"
-            >
-              <h3 className="font-display text-sm font-semibold text-ink-900 dark:text-white">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-500 dark:text-ink-300">
-                {item.description}
-              </p>
+            <Reveal key={item.title} delay={i * 0.05} from={i % 2 ? "right" : "left"}>
+              <OpenBox title={item.title} summary={item.description} items={item.details} />
             </Reveal>
           ))}
         </div>

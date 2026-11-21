@@ -192,7 +192,7 @@ export default function AssistantDock({ greet }) {
           className={cn(
             "glass-strong neon-border pointer-events-auto flex flex-col overflow-hidden rounded-2xl shadow-2xl",
             "w-[calc(100vw-1.5rem)] sm:w-[380px]",
-            minimized ? "h-auto" : large ? "h-[min(78vh,640px)] sm:w-[520px]" : "h-[min(68vh,520px)]"
+            minimized ? "h-auto" : large ? "h-[min(78dvh,640px)] sm:w-[520px]" : "h-[min(72dvh,540px)]"
           )}
         >
           <header className="flex items-center gap-2 border-b border-ink-300/15 px-4 py-3">
@@ -237,7 +237,7 @@ export default function AssistantDock({ greet }) {
                               key={l.label}
                               href={l.href}
                               {...(l.href.startsWith("#") ? { onClick: () => window.innerWidth < 640 && setOpen(false) } : { target: l.href.startsWith("mailto:") || l.href.startsWith("tel:") ? undefined : "_blank", rel: "noopener noreferrer" })}
-                              className="rounded-md border border-brand-500/30 bg-brand-500/10 px-2 py-1 text-xs font-medium text-brand-600 hover:bg-brand-500/20 dark:text-cyan-300"
+                              className="inline-flex min-h-9 items-center rounded-md border border-brand-500/30 bg-brand-500/10 px-3 text-xs font-medium text-brand-600 hover:bg-brand-500/20 dark:text-cyan-300"
                             >
                               {l.label}
                             </a>
@@ -265,7 +265,7 @@ export default function AssistantDock({ greet }) {
                       key={q}
                       type="button"
                       onClick={() => send(q)}
-                      className="shrink-0 rounded-full border border-brand-500/30 px-3 py-1.5 text-xs text-ink-600 hover:border-brand-500 hover:text-brand-500 dark:text-slate-300"
+                      className="min-h-10 shrink-0 rounded-full border border-brand-500/30 px-4 py-2 text-sm text-ink-600 hover:border-brand-500 hover:text-brand-500 dark:text-slate-300"
                     >
                       {q}
                     </button>
@@ -309,14 +309,14 @@ export default function AssistantDock({ greet }) {
                   maxLength={500}
                   placeholder="Ask about Sabin…"
                   autoComplete="off"
-                  className="min-w-0 flex-1 rounded-lg border border-ink-300/25 bg-white/80 px-3 py-2 text-sm text-ink-900 outline-none focus:border-brand-500 dark:bg-ink-900/70 dark:text-white"
+                  className="h-12 min-w-0 flex-1 rounded-xl border border-ink-300/25 bg-white/80 px-4 text-base text-ink-900 outline-none focus:border-brand-500 dark:bg-ink-900/70 dark:text-white"
                 />
                 {voiceMode && sttSupported && (
                   <IconBtn
                     label={speech.listening ? "Stop listening" : "Speak your question"}
                     pressed={speech.listening}
                     onClick={speech.listening ? speech.stopListening : speech.startListening}
-                    className="h-10 w-10 border border-ink-300/25"
+                    className="h-12 w-12 border border-ink-300/25"
                   >
                     {speech.listening ? <MicOff size={16} /> : <Mic size={16} />}
                   </IconBtn>
@@ -325,7 +325,7 @@ export default function AssistantDock({ greet }) {
                   type="submit"
                   disabled={!input.trim() || loading}
                   aria-label="Send message"
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-500 text-white hover:bg-brand-600 disabled:opacity-50"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-500 text-white hover:bg-brand-600 active:scale-95 disabled:opacity-50"
                 >
                   <Send size={16} aria-hidden="true" />
                 </button>
@@ -341,7 +341,7 @@ export default function AssistantDock({ greet }) {
         onClick={open ? () => setMinimized(false) || inputRef.current?.focus() : openChat}
         aria-label={open ? "AI assistant is open" : "Open AI assistant"}
         aria-expanded={open}
-        className="neon-border glass-strong pointer-events-auto relative h-24 w-24 overflow-hidden rounded-full shadow-xl transition-transform hover:scale-105 sm:h-28 sm:w-28"
+        className={cn("neon-border glass-strong pointer-events-auto relative h-24 w-24 overflow-hidden rounded-full shadow-xl transition-transform hover:scale-105 active:scale-95 sm:h-28 sm:w-28", open && "max-sm:hidden")}
       >
         {robotView}
         <span className="absolute inset-x-0 bottom-0 bg-ink-900/70 py-0.5 text-center font-mono text-[9px] uppercase tracking-widest text-cyan-300">Ask AI</span>
@@ -359,7 +359,7 @@ function IconBtn({ label, onClick, children, pressed, className }) {
       title={label}
       aria-pressed={pressed}
       className={cn(
-        "flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-ink-500 transition-colors hover:bg-brand-500/10 hover:text-brand-500 dark:text-slate-300",
+        "flex h-10 w-10 shrink-0 items-center justify-center rounded-md text-ink-500 sm:h-8 sm:w-8 transition-colors hover:bg-brand-500/10 hover:text-brand-500 dark:text-slate-300",
         pressed && "bg-brand-500/15 text-brand-500",
         className
       )}

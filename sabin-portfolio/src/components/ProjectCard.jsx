@@ -44,14 +44,14 @@ export default function ProjectCard({ project, onOpenDetails }) {
           ))}
         </ul>
 
-        <div className="mt-6 flex items-center gap-3">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           {project.links?.demo && (
             <a
               href={project.links.demo}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => track("project_click", project.id)}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-brand-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-lg bg-brand-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
             >
               Live Demo
               <ArrowUpRight size={14} aria-hidden="true" />
@@ -63,7 +63,7 @@ export default function ProjectCard({ project, onOpenDetails }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => track("project_click", project.id)}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-ink-300/25 px-4 py-2 text-sm font-semibold text-ink-700 transition-colors hover:border-brand-500/50 hover:text-brand-500 dark:text-slate-200"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-ink-300/25 px-4 py-2 text-sm font-semibold text-ink-700 transition-colors hover:border-brand-500/50 hover:text-brand-500 dark:text-slate-200"
             >
               <Github size={14} aria-hidden="true" />
               GitHub
@@ -72,7 +72,7 @@ export default function ProjectCard({ project, onOpenDetails }) {
           <button
             type="button"
             onClick={() => onOpenDetails(project)}
-            className="ml-auto text-sm font-medium text-ink-500 underline-offset-4 hover:text-brand-500 hover:underline dark:text-ink-300"
+            className="ml-auto min-h-11 px-2 text-sm font-medium text-ink-500 underline-offset-4 hover:text-brand-500 hover:underline dark:text-ink-300"
           >
             Details
           </button>

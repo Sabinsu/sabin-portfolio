@@ -3,10 +3,10 @@ import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { isCoarsePointer } from "../utils/webgl";
 
 /** Pulls its child slightly toward the cursor. */
-export default function Magnetic({ children, strength = 0.25 }) {
+export default function Magnetic({ children, strength = 0.25, className = "inline-block" }) {
   const ref = useRef(null);
   const reduced = usePrefersReducedMotion();
-  if (reduced || isCoarsePointer()) return <span className="inline-block">{children}</span>;
+  if (reduced || isCoarsePointer()) return <span className={className}>{children}</span>;
 
   const move = (e) => {
     const el = ref.current;
@@ -18,7 +18,7 @@ export default function Magnetic({ children, strength = 0.25 }) {
   const leave = () => { if (ref.current) ref.current.style.transform = "translate3d(0,0,0)"; };
 
   return (
-    <span ref={ref} onPointerMove={move} onPointerLeave={leave} className="inline-block" style={{ transition: "transform 180ms ease-out" }}>
+    <span ref={ref} onPointerMove={move} onPointerLeave={leave} className={className} style={{ transition: "transform 180ms ease-out" }}>
       {children}
     </span>
   );

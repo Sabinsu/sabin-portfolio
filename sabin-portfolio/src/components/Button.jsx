@@ -18,7 +18,8 @@ export default function Button({
   return (
     <Tag
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold",
+        "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold",
+        variant === "primary" && "btn-shine",
         "transition-all duration-200 ease-out active:scale-[0.98]",
         "focus-visible:outline-2 focus-visible:outline-brand-500 focus-visible:outline-offset-2",
         variants[variant],

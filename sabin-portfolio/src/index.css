@@ -201,3 +201,64 @@
 
 /* Make sure fixed UI respects iOS safe area */
 .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+
+/* ---------- Mobile & touch polish ---------- */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { overflow-x: clip; }
+a, button, [role="button"], input, select, textarea, label, summary { touch-action: manipulation; }
+input, select, textarea { font-size: max(16px, 1em); } /* stops iOS zoom-on-focus */
+
+/* Popup: the card "opens" like a box lid */
+@keyframes box-open-in {
+  0%   { opacity: 0; transform: perspective(900px) rotateX(-18deg) translateY(28px) scale(0.94); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: perspective(900px) rotateX(0) translateY(0) scale(1); }
+}
+.gate-card { transform-origin: 50% 100%; animation: box-open-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+/* ---------- Open-box cards ---------- */
+.ob { position: relative; }
+.ob-lid {
+  position: absolute; left: 0; right: 0; top: 0; height: 14px; z-index: 2; pointer-events: none;
+  border-radius: 0.75rem 0.75rem 0 0;
+  background: linear-gradient(90deg, rgba(47,111,237,0.85), rgba(34,211,238,0.85));
+  transform-origin: 50% 0;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease 0.2s;
+  box-shadow: 0 6px 18px -6px rgba(34,211,238,0.6);
+}
+.ob-lid::after { /* latch */
+  content: ""; position: absolute; left: 50%; bottom: -5px; width: 26px; height: 8px; margin-left: -13px;
+  border-radius: 0 0 6px 6px; background: #0d121a; border: 1px solid rgba(34,211,238,0.7); border-top: 0;
+}
+.ob[data-open="true"] .ob-lid { transform: perspective(700px) rotateX(-115deg); opacity: 0.35; }
+.ob-glow {
+  position: absolute; inset: 0; border-radius: 0.75rem; pointer-events: none; opacity: 0;
+  background: radial-gradient(120% 80% at 50% 0%, rgba(34,211,238,0.22), transparent 65%);
+  transition: opacity 0.6s ease;
+}
+.ob[data-open="true"] .ob-glow { opacity: 1; }
+.ob-content { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.55s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.ob[data-open="true"] .ob-content { grid-template-rows: 1fr; }
+.ob-content > div { overflow: hidden; min-height: 0; }
+.ob-item {
+  opacity: 0; transform: translateY(16px) scale(0.96);
+  transition: opacity 0.45s ease, transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: 0ms;
+}
+.ob[data-open="true"] .ob-item { opacity: 1; transform: none; transition-delay: calc(var(--i) * 80ms + 180ms); }
+.ob-plus { transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.ob[data-open="true"] .ob-plus { transform: rotate(135deg); }
+@keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+.ob[data-open="false"] .ob-hint { animation: nudge 2.2s ease-in-out infinite; }
+
+/* Button light sweep */
+.btn-shine { position: relative; overflow: hidden; }
+.btn-shine::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-20deg); transition: left 0.6s ease;
+}
+.btn-shine:hover::after { left: 130%; }
+
+@keyframes bar-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }

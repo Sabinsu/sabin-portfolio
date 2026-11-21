@@ -76,7 +76,7 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-2 xl:hidden">
-            <button type="button" onClick={openAssistant} aria-label="Ask the AI assistant" className="flex h-10 w-10 items-center justify-center rounded-lg border border-cyan-400/50 text-cyan-700 dark:text-cyan-300">
+            <button type="button" onClick={openAssistant} aria-label="Ask the AI assistant" className="flex h-11 w-11 items-center justify-center rounded-lg border border-cyan-400/50 text-cyan-700 dark:text-cyan-300">
               <Bot size={18} aria-hidden="true" />
             </button>
             <ThemeToggle />
@@ -86,7 +86,7 @@ export default function Navbar() {
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? "Close menu" : "Open menu"}
-              className="flex h-10 w-10 items-center justify-center rounded-lg border border-ink-300/25 text-ink-700 dark:text-slate-200"
+              className="flex h-11 w-11 items-center justify-center rounded-lg border border-ink-300/25 text-ink-700 dark:text-slate-200"
             >
               {open ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
             </button>
@@ -102,7 +102,7 @@ export default function Navbar() {
                   href={`#${item.id}`}
                   onClick={() => setOpen(false)}
                   aria-current={activeId === item.id ? "page" : undefined}
-                  className={cn("rounded-md px-3 py-3 text-sm font-medium hover:bg-ink-100/60 dark:hover:bg-ink-800", activeId === item.id ? "text-brand-600 dark:text-cyan-300" : "text-ink-700 dark:text-slate-200")}
+                  className={cn("flex min-h-12 items-center rounded-md px-3 text-sm font-medium hover:bg-ink-100/60 dark:hover:bg-ink-800", activeId === item.id ? "text-brand-600 dark:text-cyan-300" : "text-ink-700 dark:text-slate-200")}
                 >
                   {item.label}
                 </a>

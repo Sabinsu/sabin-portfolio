@@ -101,7 +101,7 @@ export default function InteractiveTerminal() {
         <span className="h-2.5 w-2.5 rounded-full bg-green-400/70" aria-hidden="true" />
         <span className="ml-3 font-mono text-[11px] text-ink-300">sabin@portfolio ~ </span>
       </div>
-      <div ref={boxRef} className="h-72 overflow-y-auto p-4 font-mono text-[12.5px] leading-relaxed text-slate-200 sm:h-80" role="log" aria-live="polite" onClick={() => document.getElementById("terminal-input")?.focus()}>
+      <div ref={boxRef} className="h-72 overflow-y-auto p-4 font-mono text-[13px] leading-relaxed text-slate-200 sm:h-80" role="log" aria-live="polite" onClick={() => document.getElementById("terminal-input")?.focus()}>
         {lines.map((l, i) => (
           <p key={i} className={`whitespace-pre-wrap break-words ${l.cmd ? "text-cyan-300" : ""}`}>
             {l.href ? <a href={l.href} {...(l.href.startsWith("#") ? {} : { target: "_blank", rel: "noopener noreferrer" })} className="text-brand-300 underline">{l.t}</a> : l.t}
@@ -109,12 +109,12 @@ export default function InteractiveTerminal() {
         ))}
         <form onSubmit={(e) => { e.preventDefault(); run(value); setValue(""); }} className="mt-1 flex items-center gap-2">
           <label htmlFor="terminal-input" className="text-cyan-300">$</label>
-          <input id="terminal-input" value={value} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey} autoComplete="off" autoCapitalize="off" spellCheck={false} aria-label="Terminal command" className="min-w-0 flex-1 bg-transparent text-slate-100 outline-none" />
+          <input id="terminal-input" value={value} onChange={(e) => setValue(e.target.value)} onKeyDown={onKey} autoComplete="off" autoCapitalize="off" spellCheck={false} aria-label="Terminal command" className="min-w-0 flex-1 bg-transparent text-base text-slate-100 outline-none sm:text-[12.5px]" />
         </form>
       </div>
       <div className="flex flex-wrap gap-2 border-t border-white/5 p-3">
         {["help", "about", "skills", "projects", "experience", "contact", "resume"].map((c) => (
-          <button key={c} type="button" onClick={() => run(c)} className="rounded-md border border-white/10 px-2.5 py-1 font-mono text-[11px] text-cyan-300 hover:border-cyan-300/50">{c}</button>
+          <button key={c} type="button" onClick={() => run(c)} className="min-h-10 rounded-md border border-white/10 px-3.5 py-2 font-mono text-xs text-cyan-300 hover:border-cyan-300/50 active:bg-cyan-400/10">{c}</button>
         ))}
       </div>
     </div>

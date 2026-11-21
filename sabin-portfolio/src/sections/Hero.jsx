@@ -36,18 +36,18 @@ export default function Hero() {
             ))}
           </ul>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
-            <Magnetic>
-              <Button as="a" href="#projects" variant="primary">Explore Portfolio <ArrowRight size={16} aria-hidden="true" /></Button>
+          <div className="mt-9 grid grid-cols-1 gap-3 min-[430px]:grid-cols-2 sm:flex sm:flex-wrap sm:items-center">
+            <Magnetic className="block sm:inline-block">
+              <Button as="a" href="#projects" variant="primary" className="w-full sm:w-auto">Explore Portfolio <ArrowRight size={16} aria-hidden="true" /></Button>
             </Magnetic>
-            <Magnetic>
-              <Button as="a" href={profile.resumeUrl} download variant="outline" onClick={() => track("resume_download", "hero")}>Download Resume <Download size={16} aria-hidden="true" /></Button>
+            <Magnetic className="block sm:inline-block">
+              <Button as="a" href={profile.resumeUrl} download variant="outline" className="w-full sm:w-auto" onClick={() => track("resume_download", "hero")}>Download Resume <Download size={16} aria-hidden="true" /></Button>
             </Magnetic>
-            <Magnetic>
-              <Button as="a" href="#contact" variant="ghost">Contact Me <MessageSquare size={16} aria-hidden="true" /></Button>
+            <Magnetic className="block sm:inline-block">
+              <Button as="a" href="#contact" variant="ghost" className="w-full border border-ink-300/25 sm:w-auto sm:border-0">Contact Me <MessageSquare size={16} aria-hidden="true" /></Button>
             </Magnetic>
-            <Magnetic>
-              <Button type="button" variant="outline" onClick={() => window.dispatchEvent(new CustomEvent("assistant:open"))} className="border-cyan-400/50 text-cyan-700 dark:text-cyan-300">
+            <Magnetic className="block sm:inline-block">
+              <Button type="button" variant="outline" onClick={() => window.dispatchEvent(new CustomEvent("assistant:open"))} className="w-full border-cyan-400/50 text-cyan-700 dark:text-cyan-300 sm:w-auto">
                 Ask my AI <Bot size={16} aria-hidden="true" />
               </Button>
             </Magnetic>

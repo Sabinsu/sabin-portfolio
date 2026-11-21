@@ -94,7 +94,7 @@ export default function Contact() {
                 type="button"
                 onClick={copyEmail}
                 aria-label="Copy email address"
-                className="flex h-8 w-8 items-center justify-center rounded-md border border-ink-300/25 text-ink-400 hover:text-brand-500"
+                className="flex h-11 w-11 items-center justify-center rounded-md border border-ink-300/25 text-ink-400 hover:text-brand-500"
               >
                 {copied ? <Check size={14} aria-hidden="true" /> : <Copy size={14} aria-hidden="true" />}
               </button>
@@ -148,7 +148,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={status === "submitting"}
-                className="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-60"
+                className="btn-shine inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-brand-500 px-5 py-3 text-base font-semibold text-white transition-colors hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
               >
                 {status === "submitting" ? "Sending…" : "Send Message"}
                 {status !== "submitting" && <Send size={15} aria-hidden="true" />}
@@ -202,7 +202,7 @@ function Field({ label, name, error, as = "input", ...props }) {
         name={name}
         aria-invalid={!!error}
         aria-describedby={error ? `${name}-error` : undefined}
-        className="w-full rounded-lg border border-ink-300/25 bg-white px-4 py-2.5 text-sm text-ink-900 outline-none transition-colors focus:border-brand-500 dark:bg-ink-900 dark:text-white"
+        className="min-h-12 w-full rounded-lg border border-ink-300/25 bg-white px-4 py-3 text-base text-ink-900 outline-none transition-colors focus:border-brand-500 dark:bg-ink-900 dark:text-white"
         {...props}
       />
       {error && (

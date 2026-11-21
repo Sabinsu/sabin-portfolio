@@ -1,5 +1,9 @@
 import SectionHeading from "../components/SectionHeading";
 import Reveal from "../components/Reveal";
+import OpenBox from "../components/OpenBox";
+import { Cpu, LayoutDashboard, Server, Users } from "lucide-react";
+
+const ICONS = [Cpu, Server, LayoutDashboard, Users];
 import { profile } from "../data/profile";
 
 export default function About() {
@@ -45,19 +49,10 @@ export default function About() {
             </dl>
           </Reveal>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid items-start gap-4 sm:grid-cols-2">
             {profile.about.highlights.map((item, i) => (
-              <Reveal
-                key={item.title}
-                delay={i * 0.06}
-                className="rounded-xl border border-ink-300/15 bg-white p-5 dark:bg-ink-850/60 backdrop-blur-sm"
-              >
-                <h3 className="font-display text-sm font-semibold text-ink-900 dark:text-white">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-500 dark:text-ink-300">
-                  {item.description}
-                </p>
+              <Reveal key={item.title} delay={i * 0.06} from="right">
+                <OpenBox icon={ICONS[i]} title={item.title} summary={item.description} items={item.details} />
               </Reveal>
             ))}
           </div>

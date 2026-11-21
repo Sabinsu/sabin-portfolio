@@ -21,6 +21,11 @@ An immersive, accessible developer portfolio: a lightweight 3D space background,
 - `/api/analytics`: consent-only anonymous events logged to Vercel logs.
 - The UI never claims a message/registration was sent unless the server confirmed it.
 
+**Mobile-first interaction**
+- Popup: large 56px fields, stacked country-code + number on phones, numeric keypad, live full-number preview, big consent row, 16px text (no iOS zoom), keyboard-aware scrolling, safe-area padding.
+- "Open box" cards (About, Services, Leadership): tap/click/Enter lifts the lid and reveals more detail. Touch, mouse and keyboard all work.
+- 44px+ touch targets, swipe gestures in the project gallery, bottom-sheet chat, optional haptic tick on supported phones.
+
 **Quality**: semantic HTML, keyboard navigation, focus management, ARIA, reduced-motion support, responsive 320px→1920px, SEO (meta, OG, JSON-LD, robots, sitemap).
 
 ## Tech stack

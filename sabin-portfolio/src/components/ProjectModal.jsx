@@ -6,6 +6,7 @@ import { ArrowUpRight, ChevronLeft, ChevronRight, Github, X } from "lucide-react
 function ProjectModalInner({ project, onClose }) {
   const closeRef = useRef(null);
   const [shot, setShot] = useState(0);
+  const touchX = useRef(null);
 
   useEffect(() => {
     const previouslyFocused = document.activeElement;
@@ -43,7 +44,7 @@ function ProjectModalInner({ project, onClose }) {
           role="dialog"
           aria-modal="true"
           aria-labelledby="project-modal-title"
-          className="relative max-h-[85vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-ink-300/15 bg-white p-6 shadow-2xl dark:bg-ink-900 neon-border sm:p-8"
+          className="relative max-h-[92dvh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-ink-300/15 bg-white p-6 shadow-2xl dark:bg-ink-900 neon-border sm:p-8"
           initial={{ opacity: 0, y: 16, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 16, scale: 0.98 }}
@@ -55,7 +56,7 @@ function ProjectModalInner({ project, onClose }) {
             type="button"
             onClick={onClose}
             aria-label="Close project details"
-            className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-lg border border-ink-300/25 text-ink-500 hover:border-brand-500/50 hover:text-brand-500 dark:text-ink-300"
+            className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-lg border border-ink-300/25 text-ink-500 hover:border-brand-500/50 hover:text-brand-500 dark:text-ink-300"
           >
             <X size={16} aria-hidden="true" />
           </button>
@@ -72,7 +73,17 @@ function ProjectModalInner({ project, onClose }) {
 
           {project.gallery?.length > 0 && (
             <div className="mt-5" aria-label="Project screenshots">
-              <figure className="relative overflow-hidden rounded-xl border border-ink-300/15 bg-ink-900">
+              <figure
+                className="relative overflow-hidden rounded-xl border border-ink-300/15 bg-ink-900"
+                onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
+                onTouchEnd={(e) => {
+                  if (touchX.current === null) return;
+                  const dx = e.changedTouches[0].clientX - touchX.current;
+                  touchX.current = null;
+                  const n = project.gallery.length;
+                  if (Math.abs(dx) > 40) setShot((i) => (dx < 0 ? (i + 1) % n : (i - 1 + n) % n));
+                }}
+              >
                 <img
                   key={project.gallery[shot].src}
                   src={project.gallery[shot].src}
@@ -85,10 +96,10 @@ function ProjectModalInner({ project, onClose }) {
                 </figcaption>
                 {project.gallery.length > 1 && (
                   <>
-                    <button type="button" aria-label="Previous screenshot" onClick={() => setShot((i) => (i - 1 + project.gallery.length) % project.gallery.length)} className="absolute left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-ink-950/70 text-white hover:bg-brand-500">
+                    <button type="button" aria-label="Previous screenshot" onClick={() => setShot((i) => (i - 1 + project.gallery.length) % project.gallery.length)} className="absolute left-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink-950/70 text-white hover:bg-brand-500">
                       <ChevronLeft size={18} aria-hidden="true" />
                     </button>
-                    <button type="button" aria-label="Next screenshot" onClick={() => setShot((i) => (i + 1) % project.gallery.length)} className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-ink-950/70 text-white hover:bg-brand-500">
+                    <button type="button" aria-label="Next screenshot" onClick={() => setShot((i) => (i + 1) % project.gallery.length)} className="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-ink-950/70 text-white hover:bg-brand-500">
                       <ChevronRight size={18} aria-hidden="true" />
                     </button>
                   </>
@@ -96,7 +107,7 @@ function ProjectModalInner({ project, onClose }) {
               </figure>
               <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
                 {project.gallery.map((s, i) => (
-                  <button key={s.caption} type="button" onClick={() => setShot(i)} aria-label={`Show screenshot: ${s.caption}`} aria-current={i === shot} className={`w-20 shrink-0 overflow-hidden rounded-md border-2 ${i === shot ? "border-cyan-400" : "border-transparent opacity-60 hover:opacity-100"}`}>
+                  <button key={s.caption} type="button" onClick={() => setShot(i)} aria-label={`Show screenshot: ${s.caption}`} aria-current={i === shot} className={`w-24 shrink-0 overflow-hidden rounded-md border-2 ${i === shot ? "border-cyan-400" : "border-transparent opacity-60 hover:opacity-100"}`}>
                     <img src={s.src} alt="" loading="lazy" className="aspect-video w-full object-cover object-top" />
                   </button>
                 ))}

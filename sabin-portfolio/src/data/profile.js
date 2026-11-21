@@ -42,21 +42,45 @@ export const profile = {
         title: "Automation & Scraping",
         description:
           "Browser automation and structured data extraction with Selenium, SeleniumBase and Playwright.",
+        details: [
+          "Browser automation with Selenium, SeleniumBase and Playwright",
+          "Structured data extraction from web sources",
+          "Python scripts that remove repetitive manual work",
+          "Excel macro (VBA) automation",
+        ],
       },
       {
         title: "Backend Systems",
         description:
           "APIs and background processing with FastAPI, Redis and Celery, deployed on AWS.",
+        details: [
+          "APIs and services with FastAPI",
+          "Background task handling with Redis and Celery",
+          "Basic deployments on AWS (EC2, ECS)",
+          "Node.js / Express REST APIs",
+        ],
       },
       {
         title: "Web Development",
         description:
           "Full-stack products with React, Node.js/Express, and MongoDB/MySQL.",
+        details: [
+          "React, Vite and Tailwind CSS frontends",
+          "Node.js / Express backends",
+          "MongoDB (Mongoose), MySQL and SQL databases",
+          "Built and deployed ShopZone, a full-stack e-commerce app",
+        ],
       },
       {
         title: "Team Leadership",
         description:
           "Coordinating projects, delegating tasks, and guiding technical decisions as Team Leader.",
+        details: [
+          "Leading a technical team at AutoLab Technologies",
+          "Managing project timelines",
+          "Coordinating with stakeholders to deliver",
+          "Delegating tasks and guiding technical decisions",
+        ],
       },
     ],
   },

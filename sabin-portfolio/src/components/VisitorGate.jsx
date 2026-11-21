@@ -96,10 +96,11 @@ export default function VisitorGate({ onEnter }) {
     }
   };
 
-  const field = "w-full rounded-lg border bg-white/80 px-3.5 py-2.5 text-sm text-ink-900 outline-none transition-colors focus:border-cyan-400 dark:bg-ink-900/70 dark:text-white";
+  const field = "w-full h-14 rounded-xl border-2 bg-white/90 px-4 text-base text-ink-900 outline-none transition-colors placeholder:text-ink-400 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/15 dark:bg-ink-900/70 dark:text-white";
+  const scrollToField = (e) => { const el = e.target; setTimeout(() => el.scrollIntoView?.({ block: "center", behavior: "smooth" }), 250); };
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-ink-950/85 p-4 backdrop-blur-md" onKeyDown={onKeyDown}>
+    <div className="fixed inset-0 z-[80] flex items-start justify-center overflow-y-auto overscroll-contain bg-ink-950/85 p-3 pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-md sm:items-center sm:p-4" onKeyDown={onKeyDown}>
       <div className="holo-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
       <div
         ref={dialogRef}
@@ -107,7 +108,7 @@ export default function VisitorGate({ onEnter }) {
         aria-modal="true"
         aria-labelledby="gate-title"
         aria-describedby="gate-sub"
-        className="glass-strong neon-border relative my-auto w-full max-w-md rounded-2xl p-6 shadow-2xl glow-blue sm:p-8"
+        className="gate-card glass-strong neon-border relative my-auto w-full max-w-md rounded-3xl p-5 shadow-2xl glow-blue sm:p-8"
       >
         {status === "success" ? (
           <div className="py-10 text-center" role="status">
@@ -118,31 +119,38 @@ export default function VisitorGate({ onEnter }) {
         ) : (
           <>
             <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-cyan-500 dark:text-cyan-300">Visitor registration</p>
-            <h2 id="gate-title" className="mt-2 font-display text-2xl font-semibold text-ink-900 dark:text-white sm:text-3xl">
+            <h2 id="gate-title" className="mt-2 font-display text-[1.65rem] font-semibold leading-tight text-ink-900 dark:text-white sm:text-3xl">
               Welcome to <span className="text-gradient">Sabin&apos;s Digital Universe</span>
             </h2>
             <p id="gate-sub" className="mt-2 text-sm text-ink-500 dark:text-ink-300">Before exploring, please introduce yourself.</p>
 
-            <form onSubmit={submit} noValidate className="mt-6 space-y-4">
+            <form onSubmit={submit} noValidate className="mt-6 space-y-5">
               <div>
-                <label htmlFor="gate-name" className="mb-1.5 block text-sm font-medium text-ink-700 dark:text-slate-200">Full name</label>
-                <input id="gate-name" ref={nameRef} value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" maxLength={80}
+                <label htmlFor="gate-name" className="mb-2 block text-base font-semibold text-ink-800 dark:text-slate-100">Full name</label>
+                <input id="gate-name" ref={nameRef} value={name} onChange={(e) => { setName(e.target.value); setErrors((er) => ({ ...er, name: undefined })); }} onFocus={scrollToField} autoComplete="name" autoCapitalize="words" enterKeyHint="next" placeholder="e.g. Asha Sharma" maxLength={80}
                   aria-invalid={!!errors.name} aria-describedby={errors.name ? "gate-name-err" : undefined}
                   className={`${field} ${errors.name ? "border-red-400" : "border-ink-300/25"}`} />
-                {errors.name && <p id="gate-name-err" className="mt-1 text-xs text-red-500">{errors.name}</p>}
+                {errors.name && <p id="gate-name-err" className="mt-2 text-sm text-red-500">{errors.name}</p>}
               </div>
 
               <div>
-                <label htmlFor="gate-phone" className="mb-1.5 block text-sm font-medium text-ink-700 dark:text-slate-200">Mobile number</label>
-                <div className="flex gap-2">
-                  <select aria-label="Country code" value={cc} onChange={(e) => setCc(e.target.value)} className={`${field} w-28 shrink-0 border-ink-300/25 px-2`}>
+                <label htmlFor="gate-phone" className="mb-2 block text-base font-semibold text-ink-800 dark:text-slate-100">Mobile number</label>
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <select aria-label="Country code" value={cc} onChange={(e) => setCc(e.target.value)} className={`${field} border-ink-300/30 sm:w-44 sm:shrink-0`}>
                     {COUNTRY_CODES.map((c) => <option key={c.code + c.label} value={c.code}>{c.label}</option>)}
                   </select>
-                  <input id="gate-phone" value={phone} onChange={(e) => setPhone(e.target.value.replace(/[^\d\s-]/g, ""))} type="tel" inputMode="tel" autoComplete="tel-national" maxLength={16}
-                    aria-invalid={!!errors.phone} aria-describedby={errors.phone ? "gate-phone-err" : undefined}
-                    className={`${field} min-w-0 ${errors.phone ? "border-red-400" : "border-ink-300/25"}`} />
+                  <input id="gate-phone" value={phone} onChange={(e) => { setPhone(e.target.value.replace(/[^\d\s-]/g, "")); setErrors((er) => ({ ...er, phone: undefined })); }} onFocus={scrollToField}
+                    type="tel" inputMode="tel" autoComplete="tel-national" enterKeyHint="done" placeholder="98XXXXXXXX" maxLength={16}
+                    aria-invalid={!!errors.phone} aria-describedby={errors.phone ? "gate-phone-err" : "gate-phone-hint"}
+                    className={`${field} text-lg font-medium tracking-wide sm:min-w-0 ${errors.phone ? "border-red-400" : "border-ink-300/30"}`} />
                 </div>
-                {errors.phone && <p id="gate-phone-err" className="mt-1 text-xs text-red-500">{errors.phone}</p>}
+                {errors.phone ? (
+                  <p id="gate-phone-err" className="mt-2 text-sm text-red-500">{errors.phone}</p>
+                ) : (
+                  <p id="gate-phone-hint" className="mt-2 text-sm text-ink-500 dark:text-ink-300">
+                    Full number: <span className="font-mono font-semibold text-ink-800 dark:text-white">{cc} {phone.replace(/\D/g, "").replace(/^0+/, "") || "…"}</span>
+                  </p>
+                )}
               </div>
 
               {/* honeypot: hidden from people, visible to naive bots */}
@@ -151,29 +159,29 @@ export default function VisitorGate({ onEnter }) {
               </div>
 
               <div>
-                <label className="flex cursor-pointer items-start gap-3 text-xs leading-relaxed text-ink-600 dark:text-slate-300">
-                  <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-0.5 h-4 w-4 shrink-0 accent-cyan-400"
+                <label className={`flex cursor-pointer items-start gap-4 rounded-xl border-2 p-4 text-sm leading-relaxed text-ink-700 transition-colors dark:text-slate-200 ${consent ? "border-cyan-400/60 bg-cyan-400/10" : errors.consent ? "border-red-400" : "border-ink-300/30"}`}>
+                  <input type="checkbox" checked={consent} onChange={(e) => { setConsent(e.target.checked); setErrors((er) => ({ ...er, consent: undefined })); }} className="mt-0.5 h-6 w-6 shrink-0 accent-cyan-400"
                     aria-invalid={!!errors.consent} aria-describedby={errors.consent ? "gate-consent-err" : undefined} />
                   <span>I agree that my name and mobile number are sent to Sabin so he can respond to enquiries and understand professional visitors. They are kept for up to 90 days.</span>
                 </label>
-                {errors.consent && <p id="gate-consent-err" className="mt-1 text-xs text-red-500">{errors.consent}</p>}
+                {errors.consent && <p id="gate-consent-err" className="mt-2 text-sm text-red-500">{errors.consent}</p>}
               </div>
 
               {(status === "unavailable" || status === "error") && (
-                <p role="alert" className="rounded-lg border border-amber-400/40 bg-amber-400/10 p-3 text-xs text-amber-700 dark:text-amber-200">{message}</p>
+                <p role="alert" className="rounded-xl border border-amber-400/40 bg-amber-400/10 p-4 text-sm text-amber-700 dark:text-amber-200">{message}</p>
               )}
 
               {status === "unavailable" ? (
-                <button type="button" onClick={enter} className="w-full rounded-lg bg-brand-500 px-5 py-3 text-sm font-semibold text-white hover:bg-brand-600">
+                <button type="button" onClick={enter} className="h-14 w-full rounded-xl bg-brand-500 px-5 text-base font-semibold text-white hover:bg-brand-600 active:scale-[0.98]">
                   Continue without registering
                 </button>
               ) : (
-                <button type="submit" disabled={status === "loading"} className="flex w-full items-center justify-center gap-2 rounded-lg bg-brand-500 px-5 py-3 text-sm font-semibold text-white hover:bg-brand-600 disabled:opacity-70">
-                  {status === "loading" ? (<><Loader2 size={16} className="animate-spin" aria-hidden="true" /> Registering…</>) : "Continue"}
+                <button type="submit" disabled={status === "loading"} className="flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-brand-500 px-5 text-base font-semibold text-white shadow-lg shadow-brand-500/30 transition-transform hover:bg-brand-600 active:scale-[0.98] disabled:opacity-70">
+                  {status === "loading" ? (<><Loader2 size={20} className="animate-spin" aria-hidden="true" /> Registering…</>) : "Continue"}
                 </button>
               )}
 
-              <p className="flex items-start gap-2 text-[11px] leading-relaxed text-ink-400">
+              <p className="flex items-start gap-2 text-xs leading-relaxed text-ink-400">
                 <ShieldCheck size={14} className="mt-0.5 shrink-0 text-cyan-400" aria-hidden="true" />
                 <span>We only collect what you enter here. <button type="button" onClick={openPrivacy} className="underline hover:text-brand-500">Read the privacy notice</button>.</span>
               </p>
