@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO -->
+    <title>Sabin Prasad Subedi | Software Developer & Automation Engineer</title>
+    <meta name="description" content="Sabin Prasad Subedi is a Software Developer and Automation Engineer specializing in browser automation, web scraping, and full-stack web development. Team Leader at AutoLab Technologies, building reliable automation systems with Python, Selenium, Playwright, React and FastAPI." />
+    <meta name="author" content="Sabin Prasad Subedi" />
+    <meta name="keywords" content="Sabin Prasad Subedi, Automation Engineer, Web Scraping, Software Developer, Selenium, Playwright, Python Automation, React Developer, FastAPI, Technical Team Leader" />
+    <link rel="canonical" href="https://sabin-subedi.vercel.app/" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0A0E14" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sabin-subedi.vercel.app/" />
+    <meta property="og:title" content="Sabin Prasad Subedi | Software Developer & Automation Engineer" />
+    <meta property="og:description" content="Software Developer and Automation Engineer specializing in browser automation, web scraping, and full-stack web development." />
+    <meta property="og:image" content="https://sabin-subedi.vercel.app/og-image.png" />
+    <meta property="og:site_name" content="Sabin Prasad Subedi" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://sabin-subedi.vercel.app/" />
+    <meta name="twitter:title" content="Sabin Prasad Subedi | Software Developer & Automation Engineer" />
+    <meta name="twitter:description" content="Software Developer and Automation Engineer specializing in browser automation, web scraping, and full-stack web development." />
+    <meta name="twitter:image" content="https://sabin-subedi.vercel.app/og-image.png" />
+
+    <!-- Fonts: Space Grotesk (display), Inter (body), JetBrains Mono (code/utility) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Prevent flash of incorrect theme -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored || (systemDark ? 'dark' : 'light');
+          if (theme === 'dark') document.documentElement.classList.add('dark');
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Structured Data: Person -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Sabin Prasad Subedi",
+        "jobTitle": "Software Developer & Automation Engineer",
+        "description": "Software Developer specializing in automation, web scraping and web technologies. Team Leader & Automation Engineer at AutoLab Technologies Pvt. Ltd.",
+        "url": "https://sabin-subedi.vercel.app/",
+        "sameAs": [
+          "https://github.com/Sabinsu",
+          "https://www.linkedin.com/in/sabin-subedi-353534230/"
+        ],
+        "worksFor": {
+          "@type": "Organization",
+          "name": "AutoLab Technologies Pvt. Ltd."
+        },
+        "knowsAbout": [
+          "Web Automation",
+          "Web Scraping",
+          "Python",
+          "Selenium",
+          "Playwright",
+          "React",
+          "FastAPI",
+          "Team Leadership"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
